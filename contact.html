@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contact — Young</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* --- Contact page upgraded --- */
+
+    .contact-hero {
+      position: relative;
+      text-align: center;
+      padding: 6rem 1rem 4rem;
+      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0) 60%),
+                  linear-gradient(90deg, var(--primary) 0%, #60a5fa 100%);
+      color: #041025;
+      border-radius: 0 0 2rem 2rem;
+      box-shadow: 0 10px 40px var(--glow);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero-orb {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(0,0,0,0) 70%);
+      filter: blur(40px);
+      opacity: 0.28;
+      border-radius: 50%;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      animation: heroFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes heroFloat {
+      0%   { transform: translate(-30px, -20px) scale(1); }
+      50%  { transform: translate(30px, 10px) scale(1.08); }
+      100% { transform: translate(-30px, -20px) scale(1); }
+    }
+
+    .contact-hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+
+    .contact-hero p {
+      font-size: 1.1rem;
+      font-weight: 500;
+      opacity: 0.9;
+      max-width: 650px;
+      line-height: 1.4;
+      margin: 0 auto 2rem;
+    }
+
+    /* trust / response chips */
+    .contact-stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+      gap: 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .contact-stat-card {
+      background: rgba(4,16,37,0.15);
+      color: #041025;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(4,16,37,0.2);
+      padding: 1rem 1.25rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      backdrop-filter: blur(8px);
+      transform: translateY(10px);
+      opacity: 0;
+      animation: statPop .8s ease forwards;
+    }
+
+    .contact-stat-card:nth-child(2) { animation-delay: .12s; }
+    .contact-stat-card:nth-child(3) { animation-delay: .24s; }
+
+    @keyframes statPop {
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .contact-stat-value {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+    }
+
+    .contact-stat-label {
+      font-size: .8rem;
+      font-weight: 500;
+      opacity: .8;
+      line-height: 1.4;
+    }
+
+
+    /* main body */
+    .contact-wrapper {
+      max-width: 1100px;
+      margin: 4rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+      animation: fadeIn 1.2s ease both;
+    }
+
+    /* left info card */
+    .contact-info-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-info-card h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.03em;
+    }
+
+    .contact-info-card p {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-badges {
+      display: grid;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .contact-badge {
+      background: radial-gradient(circle at 20% 20%, rgba(59,130,246,0.12) 0%, rgba(0,0,0,0) 60%),
+                  linear-gradient(180deg, #1f1f1f 0%, #151515 100%);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1rem 1rem 0.9rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+    }
+
+    .contact-badge:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 0 25px var(--glow);
+      border-color: var(--primary);
+    }
+
+    .contact-badge-icon {
+      font-size: 1.25rem;
+      line-height: 1;
+      background: rgba(59,130,246,0.15);
+      border: 1px solid var(--primary);
+      border-radius: 0.5rem;
+      padding: .5rem .6rem;
+      min-width: 2.25rem;
+      text-align: center;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .contact-badge-content strong {
+      color: var(--fg);
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: block;
+      letter-spacing: -0.03em;
+    }
+
+    .contact-badge-content span {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.4;
+      display: block;
+    }
+
+
+    /* right form card */
+    .contact-form-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-form-card h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.03em;
+    }
+
+    .contact-form-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .field-inline {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 500px) {
+      .field-inline {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .field label {
+      font-size: 0.8rem;
+      color: var(--fg);
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .field-hint {
+      color: var(--muted);
+      font-weight: 400;
+      font-size: 0.7rem;
+      line-height: 1.2;
+      margin-left: .5rem;
+    }
+
+    .input,
+    .textarea,
+    .select {
+      background: #0a0a0a;
+      border: 1px solid var(--border);
+      border-radius: 0.6rem;
+      padding: 0.9rem 1rem;
+      font-size: 0.95rem;
+      color: var(--fg);
+      outline: none;
+      transition: all 0.2s ease;
+      width: 100%;
+      font-family: inherit;
+    }
+
+    .input:focus,
+    .textarea:focus,
+    .select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 20px var(--glow);
+    }
+
+    .textarea {
+      min-height: 140px;
+      resize: vertical;
+      line-height: 1.4;
+    }
+
+    .char-row {
+      display: flex;
+      justify-content: flex-end;
+      font-size: .7rem;
+      color: var(--muted);
+      line-height: 1.2;
+      margin-top: .25rem;
+      font-weight: 400;
+    }
+
+    .form-bottom-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #041025;
+      font-weight: 700;
+      border: 0;
+      padding: 0.9rem 1.2rem;
+      border-radius: 0.6rem;
+      font-size: 1rem;
+      line-height: 1.2;
+      min-width: 140px;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 10px 30px var(--glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 20px 40px var(--glow);
+    }
+
+    .form-note {
+      font-size: .7rem;
+      color: var(--muted);
+      line-height: 1.4;
+      max-width: 260px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* page toast override */
+    .toast {
+      z-index: 9999;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">YOUNG</a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="active">Contact</a>
+        <a href="book.html" class="active">Book</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="cartBtn" class="icon-btn">
+          🛒<span id="cartCount" class="badge">0</span>
+        </button>
+        <button id="hamburger" class="hamburger" aria-label="Menu">☰</button>
+      </div>
+    </div>
+    <div id="mobileNav" class="mobile-nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="active">Contact</a>
+      <a href="book.html" class="active">Book</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="contact-hero">
+    <div class="hero-orb" id="heroOrbContact"></div>
+
+    <h1>Contact</h1>
+    <p>Collab. Wholesale. Jobs. Orders. Whatever you're building — talk to us directly.</p>
+
+    <div class="contact-stats-row">
+      <div class="contact-stat-card">
+        <div class="contact-stat-value" id="contactStatReply">24h</div>
+        <div class="contact-stat-label">Avg reply time</div>
+      </div>
+      <div class="contact-stat-card">
+        <div class="contact-stat-value" id="contactStatPartners">120+</div>
+        <div class="contact-stat-label">Creators we’ve worked with</div>
+      </div>
+      <div class="contact-stat-card">
+        <div class="contact-stat-value" id="contactStatSatisfaction">4.8★</div>
+        <div class="contact-stat-label">Order support rating</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="contact-wrapper">
+    <!-- Left side: info / channels -->
+    <aside class="contact-info-card">
+      <h2>Let's talk</h2>
+      <p>
+        Pitch an idea, propose a collab, ask about orders,
+        or send us a note if you want to work with us.
+      </p>
+
+      <div class="contact-badges">
+        <div class="contact-badge">
+          <div class="contact-badge-icon">💼</div>
+          <div class="contact-badge-content">
+            <strong>Partnerships & Collabs</strong>
+            <span>Influencers, designers, creators — we see you.</span>
+          </div>
+        </div>
+
+        <div class="contact-badge">
+          <div class="contact-badge-icon">📦</div>
+          <div class="contact-badge-content">
+            <strong>Orders / Shipping</strong>
+            <span>Question about your order or returns? Drop details.</span>
+          </div>
+        </div>
+
+        <div class="contact-badge">
+          <div class="contact-badge-icon">🚀</div>
+          <div class="contact-badge-content">
+            <strong>Careers / Join the Team</strong>
+            <span>Tell us who you are and why you fit Young.</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Right side: form -->
+    <div class="contact-form-card">
+      <h2>Send a message</h2>
+      <p>
+        We answer real people. No bots. Give us enough detail to help fast.
+      </p>
+
+      <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="fa0b695c-26ca-4ab5-9189-90697343f424">
+
+        <div class="field-inline">
+          <div class="field">
+            <label for="name">
+              Name
+              <span class="field-hint">Required</span>
+            </label>
+            <input class="input" id="name" name="name" type="text" placeholder="Jordan Lee" required>
+          </div>
+
+          <div class="field">
+            <label for="email">
+              Email
+              <span class="field-hint">We'll reply here</span>
+            </label>
+            <input class="input" id="email" name="email" type="email" placeholder="you@email.com" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="topic">
+            Topic
+            <span class="field-hint">What is this about?</span>
+          </label>
+          <select class="select" id="topic" name="topic">
+            <option value="collab">Partnership / Collab</option>
+            <option value="order">Order / Shipping Support</option>
+            <option value="career">Work with Young</option>
+            <option value="other">Other / Just say hi</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="message">
+            Your message
+            <span class="field-hint">Max 500 characters</span>
+          </label>
+          <textarea
+            class="textarea"
+            id="message"
+            name="message"
+            maxlength="500"
+            placeholder="Tell us what you need. Be specific so we can help."
+            required
+          ></textarea>
+
+          <div class="char-row">
+            <span id="charCount">0</span>/500
+          </div>
+        </div>
+
+        <div class="form-bottom-row">
+          <button class="btn-primary" type="submit" id="sendBtn">Send ✉️</button>
+
+          <div class="form-note">
+            No spam. No fake lists.
+            We only use your info to respond to you.
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Toast (reuses global .toast style from site) -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>© <strong>Young</strong> — 2025</div>
+      <div class="muted">Designed for dreamers and doers</div>
+    </div>
+  </footer>
+
+  <!-- Load global logic (cart, mobile nav, etc.) -->
+  <script src="script.js"></script>
+
+  <!-- Contact-page specific logic -->
+  <script>
+    // mobile menu toggle safety (if script.js didn't already handle it on this page)
+    (function () {
+      const hamburger = document.getElementById('hamburger');
+      const mobileNav = document.getElementById('mobileNav');
+      if (hamburger && mobileNav) {
+        hamburger.addEventListener('click', () => {
+          mobileNav.classList.toggle('open');
+        });
+      }
+    })();
+
+ 
+
+
+    // orb pointer parallax, same brand effect
+    const heroOrb = document.getElementById('heroOrbContact');
+    document.addEventListener('pointermove', (e) => {
+      if (!heroOrb) return;
+      const x = (e.clientX / window.innerWidth - 0.5) * 40;
+      const y = (e.clientY / window.innerHeight - 0.5) * 40;
+      heroOrb.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    // character counter
+    const messageEl = document.getElementById('message');
+    const charCountEl = document.getElementById('charCount');
+    if (messageEl && charCountEl) {
+      messageEl.addEventListener('input', () => {
+        charCountEl.textContent = messageEl.value.length;
+      });
+    }
+
+    // fake mini-toast after submit so user feels it worked
+    const contactForm = document.getElementById('contactForm');
+    const toastEl = document.getElementById('toast');
+
+    if (contactForm && toastEl) {
+      contactForm.addEventListener('submit', (e) => {
+        // We let the form actually POST to web3forms like normal.
+        // But we ALSO show instant UI feedback so it feels fast.
+        // We do not `preventDefault()` because you want the real send.
+        showToast("Sending your message…");
+        // After submission completes, web3forms will redirect/handle response.
+        // If you want to stay on-page with no redirect,
+        // we'd switch this to AJAX later.
+      });
+    }
+  </script>
+</body>
+</html>

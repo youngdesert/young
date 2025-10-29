@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Young — Official Merch</title>
+  <meta name="description" content="Minimal streetwear — limited drops, premium feels. Bold fashion for the next generation." />
+  <meta name="author" content="Young" />
+
+  <meta property="og:title" content="Young — Official Merch" />
+  <meta property="og:description" content="Minimal streetwear — limited drops, premium feels. New styles every month." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@lovable_dev" />
+  <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+  
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* === page-level enhancements that extend your styles.css === */
+
+    /* hero section */
+    .hero {
+      position: relative;
+      padding: 4rem 1rem 2rem;
+      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.07) 0%, rgba(0,0,0,0) 60%),
+                  linear-gradient(90deg, var(--primary) 0%, #60a5fa 100%);
+      color: #041025;
+      border-radius: 0 0 2rem 2rem;
+      box-shadow: 0 20px 60px var(--glow);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero-card {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    @media (max-width: 800px) {
+      .hero-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+    }
+
+    .hero-left h1 {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+
+    .hero-left p {
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.4;
+      opacity: 0.9;
+      max-width: 32rem;
+    }
+
+    @media (max-width: 800px) {
+      .hero-left p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    .hero-ctas {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+    }
+
+    @media (max-width: 800px) {
+      .hero-ctas {
+        justify-content: center;
+      }
+    }
+
+    .btn.primary {
+      background: #041025;
+      color: var(--primary);
+      border: 0;
+      border-radius: .75rem;
+      padding: .8rem 1rem;
+      font-size: .9rem;
+      font-weight: 600;
+      line-height: 1.2;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      cursor: pointer;
+      transition: all .25s;
+    }
+
+    .btn.primary:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+    }
+
+    .btn.ghost {
+      background: rgba(4,16,37,0);
+      color: #041025;
+      border: 1px solid rgba(4,16,37,.4);
+      backdrop-filter: blur(8px);
+      border-radius: .75rem;
+      padding: .8rem 1rem;
+      font-size: .9rem;
+      font-weight: 500;
+      line-height: 1.2;
+      cursor: pointer;
+      transition: all .25s;
+    }
+
+    .btn.ghost:hover {
+      background: rgba(255,255,255,.08);
+      border-color: #041025;
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+    }
+
+    .hero-right {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .showcase {
+      position: relative;
+      background: rgba(0,0,0,0.4);
+      border: 2px solid rgba(255,255,255,.15);
+      border-radius: 1rem;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+      overflow: hidden;
+      isolation: isolate;
+      min-width: 240px;
+      max-width: 320px;
+    }
+
+    .showcase img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      height: 340px;
+      transition: transform .4s ease;
+    }
+
+    .showcase:hover img {
+      transform: scale(1.05);
+    }
+
+    .ribbon {
+      position: absolute;
+      top: .75rem;
+      left: .75rem;
+      background: #fff;
+      color: #000;
+      font-size: .7rem;
+      font-weight: 700;
+      padding: .4rem .6rem;
+      border-radius: .5rem;
+      box-shadow: 0 15px 30px rgba(0,0,0,.4);
+      letter-spacing: -0.03em;
+    }
+
+    /* floating orb following cursor */
+    .hero-orb {
+      position: absolute;
+      right: 10%;
+      top: 20%;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(0,0,0,0) 70%);
+      filter: blur(40px);
+      opacity: .3;
+      border-radius: 50%;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      transition: transform .15s linear;
+    }
+
+    @media (max-width: 800px) {
+      .hero-orb {
+        right: 50%;
+        transform: translateX(50%);
+      }
+    }
+
+    /* trust / stats bar */
+    .trust-bar {
+      max-width: 1200px;
+      margin: 2rem auto 0;
+      padding: 0 1rem 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+      gap: 1rem;
+    }
+
+    .trust-chip {
+      background: rgba(4,16,37,0.1);
+      color: #041025;
+      border: 1px solid rgba(4,16,37,0.2);
+      border-radius: .75rem;
+      padding: .9rem 1rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,.15);
+      backdrop-filter: blur(8px);
+    }
+
+    .trust-value {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+    }
+
+    .trust-label {
+      font-size: .8rem;
+      font-weight: 500;
+      opacity: .8;
+      line-height: 1.4;
+    }
+
+    /* section headers */
+    .section-head h2 {
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: -0.03em;
+      color: var(--fg);
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .section-head p.muted {
+      font-size: .9rem;
+    }
+
+    /* product card hover image zoom */
+    .product-card img {
+      transition: transform .3s ease;
+    }
+    .product-card:hover img {
+      transform: scale(1.05);
+    }
+
+    /* next drop / email capture */
+    .drop-preview {
+      max-width: 1200px;
+      margin: 4rem auto 5rem;
+      padding: 2rem 1.5rem 2.5rem;
+      background: radial-gradient(circle at 10% 0%, rgba(96,165,250,0.18) 0%, rgba(0,0,0,0) 60%),
+                  linear-gradient(180deg, #0f172a 0%, #000 100%);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+      display: grid;
+      grid-template-columns: minmax(0,1fr) minmax(260px, 360px);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .drop-preview {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+    }
+
+    .drop-info h3 {
+      color: var(--fg);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: .5rem;
+    }
+
+    .drop-info p {
+      color: var(--muted);
+      font-size: .95rem;
+      line-height: 1.5;
+      max-width: 32rem;
+    }
+
+    .drop-form {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--border);
+      border-radius: .75rem;
+      padding: 1rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+
+    .drop-form-label {
+      color: var(--muted);
+      font-size: .8rem;
+      font-weight: 500;
+      margin-bottom: .5rem;
+      display: block;
+      text-align: left;
+    }
+
+    @media (max-width: 900px) {
+      .drop-form-label {
+        text-align: center;
+      }
+    }
+
+    .drop-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+
+    .drop-input {
+      flex: 1;
+      min-width: 0;
+      border-radius: .5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--fg);
+      padding: .8rem .75rem;
+      font-size: .9rem;
+      line-height: 1.2;
+      width: 100%;
+    }
+
+    .drop-btn {
+      border-radius: .5rem;
+      border: 0;
+      background: var(--primary);
+      color: #041025;
+      font-weight: 600;
+      padding: .8rem .9rem;
+      font-size: .9rem;
+      line-height: 1.2;
+      cursor: pointer;
+      box-shadow: 0 20px 40px var(--glow);
+      transition: all .25s;
+      white-space: nowrap;
+    }
+
+    .drop-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 30px 60px var(--glow);
+    }
+
+    .next-drop-tag {
+      display: inline-block;
+      background: var(--primary);
+      color: #041025;
+      font-size: .7rem;
+      font-weight: 700;
+      line-height: 1;
+      padding: .4rem .5rem;
+      border-radius: .4rem;
+      box-shadow: 0 10px 20px var(--glow);
+      margin-bottom: .75rem;
+    }
+
+    /* quick-add button styles + low-stock badge support (JS relies on this) */
+    .product-img {
+      position: relative;
+      overflow: hidden;
+      border-radius: .75rem;
+    }
+
+    .quick-add {
+      position: absolute;
+      bottom: .75rem;
+      right: .75rem;
+      background: var(--primary);
+      color: #041025;
+      font-size: .75rem;
+      font-weight: 600;
+      padding: .5rem .6rem;
+      border-radius: .5rem;
+      border: 0;
+      box-shadow: 0 20px 40px var(--glow);
+      opacity: 0;
+      transform: translateY(6px) scale(.95);
+      transition: all .2s ease;
+      cursor: pointer;
+    }
+
+    .product-img:hover .quick-add {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .badge-low,
+    .product-badge.badge-low {
+      background: #facc15;
+      color: #000;
+    }
+
+    /* toast on top of everything */
+    .toast {
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav-inner">
+      <!-- Brand -->
+      <a class="brand" href="index.html">YOUNG</a>
+
+      <!-- Desktop nav links -->
+      <nav id="navLinks" class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="book.html">Book</a>
+      </nav>
+
+      <!-- Right side actions -->
+      <div class="nav-actions">
+        <!-- Search (hidden on mobile via CSS media query) -->
+        <div class="search-wrap" id="searchWrap">
+          <div class="search-inner">
+            <span class="search-icon">🔍</span>
+            <input
+              id="searchInput"
+              class="search-input"
+              placeholder="Search products…"
+              autocomplete="off"
+            />
+            <button id="searchBtn" class="search-submit" aria-label="Search">Enter ↵</button>
+          </div>
+
+          <!-- live results dropdown -->
+          <div class="search-dropdown" id="searchDropdown" hidden>
+            <div id="searchResults"></div>
+            <div class="search-footer" id="searchFooterHint">
+              Press ↵ to view all results
+            </div>
+          </div>
+        </div>
+
+        <!-- Cart button -->
+        <button id="cartBtn" class="icon-btn" title="Cart">
+          🛒<span id="cartCount" class="badge">0</span>
+        </button>
+
+        <!-- Hamburger (hidden on desktop via CSS @media) -->
+        <button id="hamburger" class="hamburger" aria-label="Toggle menu">☰</button>
+      </div>
+    </div>
+
+    <!-- Mobile nav dropdown -->
+    <div id="mobileNav" class="mobile-nav">
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="book.html">Book</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <!-- floating orb -->
+    <div class="hero-orb" id="heroOrb"></div>
+
+    <div class="hero-card">
+      <div class="hero-left">
+        <h1>Be bold. Be Young.</h1>
+        <p>Minimal streetwear — limited drops, premium feels. New styles every month.</p>
+        <div class="hero-ctas">
+          <a class="btn primary" href="#topProducts">Top This Week</a>
+          <a class="btn ghost" href="#offers">Offers</a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="showcase">
+          <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80" alt="Young tee" />
+          <div class="ribbon">New drop</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- trust / activity bar -->
+    <div class="trust-bar">
+      <div class="trust-chip">
+        <div class="trust-value" id="statOrders">2,183+</div>
+        <div class="trust-label">orders shipped</div>
+      </div>
+      <div class="trust-chip">
+        <div class="trust-value" id="statRating">4.8★</div>
+        <div class="trust-label">avg customer rating</div>
+      </div>
+      <div class="trust-chip">
+        <div class="trust-value" id="statSpeed">48h</div>
+        <div class="trust-label">typical ship time</div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <!-- Top products highlight -->
+    <section id="topProducts" class="section">
+      <div class="section-head">
+        <h2>🔥 Top Products Last Week</h2>
+        <p class="muted">Hot picks loved by our community</p>
+      </div>
+      <div id="topGrid" class="top-grid"></div>
+    </section>
+
+    <!-- Offers & discounts -->
+    <section id="offers" class="section">
+      <div class="section-head">
+        <h2>💥 Offers & Discounts</h2>
+        <p class="muted">Limited-time deals — grab them before they vanish</p>
+      </div>
+      <div class="offers-row" id="offersRow"></div>
+    </section>
+
+    <!-- All products + filters -->
+    <section class="section">
+      <div class="section-head">
+        <h2>🛍 All Products</h2>
+        <div class="filters">
+          <select id="sortSelect" aria-label="Sort">
+            <option value="featured">Featured</option>
+            <option value="price-asc">Price: Low → High</option>
+            <option value="price-desc">Price: High → Low</option>
+            <option value="newest">Newest</option>
+          </select>
+          <div class="tags" id="tagFilters"></div>
+        </div>
+      </div>
+      <div id="productGrid" class="product-grid"></div>
+    </section>
+  </main>
+
+  <!-- NEXT DROP PREVIEW / EMAIL CAPTURE -->
+  <section class="drop-preview">
+    <div class="drop-info">
+      <div class="next-drop-tag">Next Drop: 11.01</div>
+      <h3>Get first access — no restocks</h3>
+      <p>
+        We don’t spam. We just text you when it’s time. Be first in line for the next limited run before it goes public.
+      </p>
+    </div>
+
+    <div class="drop-form">
+      <label class="drop-form-label" for="dropEmail">Text me when it drops</label>
+      <div class="drop-row">
+        <input
+          id="dropEmail"
+          class="drop-input"
+          type="email"
+          placeholder="your@email.com"
+        />
+        <button class="drop-btn" id="dropBtn">Notify Me</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK VIEW MODAL -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <button id="modalClose" class="modal-close">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- CART SIDEBAR -->
+  <div id="cartSidebar" class="cart-sidebar">
+    <div class="cart-header">
+      <h2>Shopping Cart</h2>
+      <button id="cartCloseBtn" class="cart-close">✕</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total:</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+      <button class="btn primary full-width">Checkout</button>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast"></div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>© <strong>Young</strong> — 2025</div>
+      <div class="muted">Made with ♥ for the next generation</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+   <!-- page-specific extras -->
+  <script>
+    // Floating orb parallax in hero
+    const heroOrb = document.getElementById('heroOrb');
+    document.addEventListener('pointermove', (e) => {
+      if (!heroOrb) return;
+      const x = (e.clientX / window.innerWidth - 0.5) * 40;
+      const y = (e.clientY / window.innerHeight - 0.5) * 40;
+      heroOrb.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    // Count-up animation for stats
+    function animateNumber(el, target, duration = 900) {
+      if (!el) return;
+      const start = 0;
+      const startTime = performance.now();
+      function tick(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const value = Math.floor(start + (target - start) * progress);
+        // format with commas and plus sign
+        el.textContent = value.toLocaleString() + '+';
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+
+    // Run stat animation once on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const statOrdersEl = document.getElementById('statOrders');
+      // animate from 0 -> 2183
+      animateNumber(statOrdersEl, 2183);
+
+      // statRating ("4.8★") and statSpeed ("48h") stay static because
+      // they're not pure numbers and we'd have to special-case strings.
+    });
+
+    // Drop notify mini logic
+    const dropBtn = document.getElementById('dropBtn');
+    const dropEmail = document.getElementById('dropEmail');
+    const toastEl = document.getElementById('toast');
+
+    if (dropBtn && dropEmail && toastEl) {
+      dropBtn.addEventListener('click', () => {
+        const val = dropEmail.value.trim();
+        if (!val || !val.includes('@')) {
+          showToast("Please enter a valid email.");
+          return;
+        }
+        showToast("You're on the list for the next drop 🔥");
+        dropEmail.value = "";
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>About — Young</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* --- About page enhancements --- */
+    .about-hero {
+      position: relative;
+      text-align: center;
+      padding: 6rem 1rem 5rem;
+      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0) 60%),
+                  linear-gradient(90deg, var(--primary) 0%, #60a5fa 100%);
+      color: #041025;
+      border-radius: 0 0 2rem 2rem;
+      box-shadow: 0 10px 40px var(--glow);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    /* floating glow orb in hero */
+    .hero-orb {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(0,0,0,0) 70%);
+      filter: blur(40px);
+      opacity: 0.25;
+      border-radius: 50%;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      animation: floatOrb 6s ease-in-out infinite;
+    }
+
+    @keyframes floatOrb {
+      0%   { transform: translate(-30px, -20px) scale(1); }
+      50%  { transform: translate(30px, 10px) scale(1.08); }
+      100% { transform: translate(-30px, -20px) scale(1); }
+    }
+
+    .about-hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+
+    .about-hero p {
+      font-size: 1.1rem;
+      font-weight: 500;
+      opacity: 0.9;
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    /* stats row under hero */
+    .stats-row {
+      max-width: 900px;
+      margin: 2.5rem auto 0;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: rgba(4,16,37,0.15);
+      color: #041025;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(4,16,37,0.2);
+      padding: 1rem 1.25rem;
+      text-align: left;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      transform: translateY(10px);
+      opacity: 0;
+      animation: statFade 0.8s ease forwards;
+    }
+    .stat-card:nth-child(2) { animation-delay: .12s; }
+    .stat-card:nth-child(3) { animation-delay: .24s; }
+
+    @keyframes statFade {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .stat-label {
+      font-size: .8rem;
+      font-weight: 500;
+      opacity: .8;
+      line-height: 1.4;
+    }
+
+    .about-content {
+      max-width: 900px;
+      margin: 4rem auto;
+      padding: 0 1.5rem;
+      line-height: 1.8;
+      color: var(--muted);
+      animation: fadeIn 1.2s ease both;
+    }
+
+    .about-content h2 {
+      color: var(--fg);
+      margin: 2.5rem 0 1rem;
+      font-weight: 800;
+      font-size: 1.75rem;
+      position: relative;
+    }
+
+    .about-content h2::after {
+      content: '';
+      position: absolute;
+      bottom: -0.4rem;
+      left: 0;
+      width: 3rem;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    .values {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+
+    .value-card {
+      position: relative;
+      background: radial-gradient(circle at 20% 20%, rgba(59,130,246,0.12) 0%, rgba(0,0,0,0) 60%),
+                  linear-gradient(180deg, #1f1f1f 0%, #151515 100%);
+      padding: 2rem 1.5rem;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      transition: all 0.35s ease;
+      text-align: left;
+      overflow: hidden;
+    }
+
+    .value-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 0 25px var(--glow);
+      border-color: var(--primary);
+    }
+
+    .value-icon {
+      font-size: 1.4rem;
+      line-height: 1;
+      display: inline-block;
+      background: rgba(59,130,246,0.15);
+      border: 1px solid var(--primary);
+      border-radius: .5rem;
+      padding: .5rem .6rem;
+      margin-bottom: .75rem;
+    }
+
+    .value-card h3 {
+      color: var(--primary);
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+    }
+
+    .value-card p {
+      color: var(--muted);
+      font-size: .95rem;
+      line-height: 1.5;
+    }
+
+    /* team */
+    .team-section {
+      margin-top: 4rem;
+      text-align: center;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .team-card {
+      position: relative;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      transition: all 0.3s;
+      overflow: hidden;
+    }
+
+    .team-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 25px var(--glow);
+    }
+
+    .team-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 0.75rem;
+      margin-bottom: 1rem;
+      transition: filter .3s ease;
+    }
+
+    .team-card:hover img {
+      filter: brightness(0.6);
+    }
+
+    /* hover reveal overlay */
+    .team-overlay {
+      position: absolute;
+      inset: 0;
+      border-radius: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      background: radial-gradient(circle at 50% 20%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 70%);
+      opacity: 0;
+      transition: opacity .3s;
+      pointer-events: none;
+    }
+
+    .team-card:hover .team-overlay {
+      opacity: 1;
+    }
+
+    .team-card h4 {
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: var(--fg);
+      position: relative;
+      z-index: 2;
+    }
+
+    .team-card span {
+      color: var(--muted);
+      font-size: 0.9rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .team-bio {
+      color: var(--muted);
+      font-size: .8rem;
+      line-height: 1.4;
+      margin-top: .5rem;
+      max-width: 18rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* join-us / cta section */
+    .cta-section {
+      max-width: 900px;
+      margin: 5rem auto 6rem;
+      padding: 2rem 1.5rem 2.5rem;
+      background: radial-gradient(circle at 10% 0%, rgba(96,165,250,0.18) 0%, rgba(0,0,0,0) 60%),
+                  linear-gradient(180deg, #0f172a 0%, #000 100%);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      color: var(--fg);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: .5rem;
+    }
+
+    .cta-section p {
+      color: var(--muted);
+      font-size: .95rem;
+      max-width: 560px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.5;
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      justify-content: center;
+    }
+
+    .cta-btn-primary {
+      background: var(--primary);
+      color: #041025;
+      font-weight: 600;
+      border-radius: .75rem;
+      border: 0;
+      padding: .8rem 1rem;
+      font-size: .9rem;
+      line-height: 1.2;
+      cursor: pointer;
+      box-shadow: 0 15px 30px var(--glow);
+      transition: all .25s;
+    }
+
+    .cta-btn-primary:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 20px 40px var(--glow);
+    }
+
+    .cta-btn-secondary {
+      background: transparent;
+      color: var(--fg);
+      border: 1px solid var(--border);
+      border-radius: .75rem;
+      padding: .8rem 1rem;
+      font-size: .9rem;
+      line-height: 1.2;
+      cursor: pointer;
+      transition: all .25s;
+    }
+
+    .cta-btn-secondary:hover {
+      background: rgba(255,255,255,0.03);
+      border-color: var(--primary);
+      box-shadow: 0 0 20px var(--glow);
+      transform: translateY(-3px) scale(1.03);
+      color: var(--primary);
+    }
+
+    /* base fade animation for content blocks */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">YOUNG</a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="book.html" class="active">Book</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="cartBtn" class="icon-btn">
+          🛒<span id="cartCount" class="badge">0</span>
+        </button>
+        <button id="hamburger" class="hamburger">☰</button>
+      </div>
+    </div>
+    <div id="mobileNav" class="mobile-nav">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="book.html" class="active">Book</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="about-hero">
+    <!-- moving glow -->
+    <div class="hero-orb" id="heroOrb"></div>
+
+    <h1>About Young</h1>
+    <p>
+      Be Bold. Be You. — Young is a culture brand built for people who build their own lane.
+      We design for the ones who don’t ask for permission.
+    </p>
+
+    <!-- quick stats / credibility -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-value" id="statCreators">1,200+</div>
+        <div class="stat-label">Creators wearing Young</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="statOrders">48h</div>
+        <div class="stat-label">Average ship time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="statSustain">80%</div>
+        <div class="stat-label">Eco / recycled materials</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Content -->
+  <section class="about-content">
+    <h2>Our Story</h2>
+    <p>
+      Young was born from a spark — an idea that fashion could be more than style.
+      It could be a statement of identity, culture, and innovation.
+      Our mission is to empower individuals to express who they are through bold designs
+      that blend art, street culture, and technology.
+    </p>
+
+    <p>
+      We’re not chasing trends. We’re documenting a mindset: ambition, hunger, self-belief.
+      You wear Young because you are already building the future version of you.
+    </p>
+
+    <h2>Our Values</h2>
+    <div class="values">
+      <div class="value-card">
+        <div class="value-icon">🔥</div>
+        <h3>Creativity</h3>
+        <p>We don’t follow — we invent. Each piece tells a story shaped by passion and imagination.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon">🌍</div>
+        <h3>Sustainability</h3>
+        <p>Our planet matters. We work with ethical manufacturing and smarter materials, not fast trash.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="value-icon">🤝</div>
+        <h3>Community</h3>
+        <p>We’re not just a brand — we’re a movement. We grow together, sharing game and opportunities.</p>
+      </div>
+    </div>
+
+    <!-- Team Section -->
+    <div class="team-section">
+      <h2>Meet the Team</h2>
+      <p class="muted">The creative minds behind the movement.</p>
+
+      <div class="team-grid">
+        <!-- Card 1 -->
+        <div class="team-card">
+          <img src="https://images.unsplash.com/photo-1603415526960-f7e0328b95b6" alt="Founder">
+          <div class="team-overlay">
+            <h4>Alex Rivera</h4>
+            <span>Founder & Creative Director</span>
+            <div class="team-bio">
+              Vision, storytelling, and direction. Alex defines the DNA of Young.
+            </div>
+          </div>
+          <h4>Alex Rivera</h4>
+          <span>Founder & Creative Director</span>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="team-card">
+          <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39" alt="Designer">
+          <div class="team-overlay">
+            <h4>Mia Torres</h4>
+            <span>Lead Designer</span>
+            <div class="team-bio">
+              Shapes silhouettes, fit, texture.
+              Every drop goes through her hands.
+            </div>
+          </div>
+          <h4>Mia Torres</h4>
+          <span>Lead Designer</span>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="team-card">
+          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde" alt="Marketing">
+          <div class="team-overlay">
+            <h4>Chris Wong</h4>
+            <span>Marketing & Partnerships</span>
+            <div class="team-bio">
+              Community, collabs, influence.
+              Connects Young to real people, not algorithms.
+            </div>
+          </div>
+          <h4>Chris Wong</h4>
+          <span>Marketing & Partnerships</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA / Join -->
+    <div class="cta-section">
+      <h2>Join the movement</h2>
+      <p>
+        Get early drops, behind-the-scenes builds, and creator-only invites.
+        We send signal, not spam.
+      </p>
+
+      <div class="cta-actions">
+        <button class="cta-btn-primary" id="joinWaitlistBtn">Get early access</button>
+        <button class="cta-btn-secondary" id="followIGBtn">@young.brand</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>© <strong>Young</strong> — 2025</div>
+      <div class="muted">Designed for dreamers and doers</div>
+    </div>
+  </footer>
+
+  <script>
+    // --- mobile nav toggle (reuses your existing script pattern if not already in script.js)
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    hamburger?.addEventListener('click', () => {
+      mobileNav.classList.toggle('open');
+    });
+
+    // --- hero orb follows mouse slightly (tiny parallax)
+    const orb = document.getElementById('heroOrb');
+    document.addEventListener('pointermove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 40;  // -20 to 20
+      const y = (e.clientY / window.innerHeight - 0.5) * 40; // -20 to 20
+      orb.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    // --- fake counters animation for stats
+    // helper to animate numbers
+    function animateNumber(el, target, duration=800) {
+      const start = 0;
+      const startTime = performance.now();
+      function tick(now) {
+        const p = Math.min((now - startTime) / duration, 1);
+        const value = Math.floor(start + (target - start) * p);
+        el.textContent = el.dataset.prefix
+          ? el.dataset.prefix + value + (el.dataset.suffix || '')
+          : value + (el.dataset.suffix || '');
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    // only run once on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const creatorsEl = document.getElementById('statCreators');
+      const ordersEl   = document.getElementById('statOrders');
+      const sustainEl  = document.getElementById('statSustain');
+
+      // store suffix/prefix for animation
+      creatorsEl.dataset.prefix = '';
+      creatorsEl.dataset.suffix = '+';
+
+      sustainEl.dataset.prefix = '';
+      sustainEl.dataset.suffix = '%';
+
+      // animate
+      animateNumber(creatorsEl, 1200);
+      // "48h" isn't numeric so we'll just leave it static
+      animateNumber(sustainEl, 80);
+    });
+
+    // CTA buttons (you can hook these later to open modal or link to IG)
+    document.getElementById('joinWaitlistBtn').addEventListener('click', () => {
+      alert("🔥 You're early. Waitlist coming soon.");
+    });
+
+    document.getElementById('followIGBtn').addEventListener('click', () => {
+      alert("Follow us on IG: @young.brand");
+    });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Young — Product</title>
+  <meta name="description" content="Young merch — product detail page. Premium streetwear." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* small page-specific tweaks */
+    .product-page { max-width:1100px;margin:2rem auto;padding:0 1rem;display:grid;grid-template-columns:1fr 420px;gap:2rem;align-items:start }
+    @media (max-width:900px){ .product-page{grid-template-columns:1fr; } }
+    .gallery{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:12px;border-radius:12px; }
+    .main-img{width:100%;height:520px;border-radius:12px;object-fit:cover;display:block}
+    .thumbs{display:flex;gap:.6rem;margin-top:.8rem;flex-wrap:wrap}
+    .thumbs img{width:80px;height:64px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent}
+    .thumbs img.active{border-color:var(--accent)}
+    .product-info{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:18px;border-radius:12px}
+    .price-big{font-size:1.5rem;font-weight:900;margin:.6rem 0}
+    .tags-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.6rem}
+    .small-tag{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:.35rem .6rem;border-radius:999px;color:var(--muted)}
+    .qty-row{display:flex;gap:.6rem;align-items:center;margin-top:10px}
+    .qty-row button{width:40px;height:40px;border-radius:10px;border:0;background:rgba(255,255,255,0.03);color:var(--muted);cursor:pointer}
+    .review-list{margin-top:12px;display:grid;gap:8px}
+    .review{background:rgba(255,255,255,0.02);padding:10px;border-radius:10px}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:12px}
+    .share-row{display:flex;gap:.6rem;margin-top:.8rem;align-items:center}
+    .breadcrumb{color:var(--muted);font-size:.95rem;margin-bottom:.6rem}
+    .btn-wide{display:inline-block;padding:.75rem 1rem;border-radius:12px;font-weight:800}
+  </style>
+</head>
+<body>
+  <!-- NAV (same as home) -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html">YOUNG</a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="search-wrap">
+          <input id="searchInputMini" placeholder="Search products..." />
+          <button id="searchBtnMini">🔍</button>
+        </div>
+        <button id="cartBtn" class="icon-btn">🛒<span id="cartCount" class="badge">0</span></button>
+        <button id="hamburger" class="hamburger">☰</button>
+      </div>
+    </div>
+    <div id="mobileNav" class="mobile-nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="productWrapper" class="product-page" aria-live="polite">
+      <!-- left: gallery -->
+      <div class="gallery">
+        <div class="breadcrumb" id="breadcrumb">Home › Product</div>
+        <img id="mainImage" class="main-img" src="images/tee-black.jpg" alt="Product image" />
+        <div class="thumbs" id="thumbs"></div>
+        <div class="muted" id="stockInfo" style="margin-top:.6rem"></div>
+      </div>
+
+      <!-- right: info -->
+      <aside class="product-info" id="infoCard">
+        <h1 id="pTitle">Product name</h1>
+        <div class="tags-row" id="pTags"></div>
+        <div class="price-big" id="pPrice">$0</div>
+        <div id="pDesc" class="muted"></div>
+
+        <div class="qty-row" style="margin-top:12px">
+          <label style="min-width:70px">Quantity</label>
+          <div style="display:flex;align-items:center;gap:.6rem">
+            <button id="qtyMinus" aria-label="Decrease">−</button>
+            <input id="qtyInput" value="1" style="width:60px;padding:.5rem;border-radius:8px;border:1px solid rgba(255,255,255,0.04);text-align:center" />
+            <button id="qtyPlus" aria-label="Increase">+</button>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;display:flex;gap:.6rem">
+          <button id="addBtn" class="btn-wide" style="background:linear-gradient(90deg,var(--accent),#3b82f6);color:#041025">Add to cart</button>
+          <button id="buyBtn" class="btn-wide" style="background:transparent;border:1px solid rgba(255,255,255,0.06)">Buy now</button>
+        </div>
+
+        <div class="share-row">
+          <div class="muted">Share:</div>
+          <button onclick="navigator.share?.({title:document.title}) || alert('Share not supported')">Share</button>
+          <button onclick="copyLink()">Copy link</button>
+        </div>
+
+        <hr style="margin:12px 0;border:none;border-top:1px solid rgba(255,255,255,0.03)">
+
+        <div>
+          <h3 style="margin-bottom:8px">Reviews</h3>
+          <div id="reviewForm">
+            <input id="reviewName" placeholder="Your name" style="width:100%;padding:.45rem;margin-bottom:.4rem;border-radius:8px;border:1px solid rgba(255,255,255,0.04)" />
+            <textarea id="reviewText" placeholder="Write a short review..." style="width:100%;padding:.45rem;border-radius:8px;border:1px solid rgba(255,255,255,0.04)"></textarea>
+            <div style="display:flex;gap:.5rem;margin-top:.5rem">
+              <select id="reviewRating"><option value="5">5 ★</option><option value="4">4 ★</option><option value="3">3 ★</option><option value="2">2 ★</option><option value="1">1 ★</option></select>
+              <button id="submitReview" class="btn">Submit</button>
+            </div>
+          </div>
+
+          <div class="review-list" id="reviewList" aria-live="polite"></div>
+        </div>
+
+        <div style="margin-top:12px">
+          <h4>Related</h4>
+          <div id="relatedGrid" class="related-grid"></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>© <strong>Young</strong> — 2025</div>
+      <div class="muted">Made with ♥ for the next generation</div>
+    </div>
+  </footer>
+
+  <!-- reuse main script (products + cart functions) -->
+  <script src="script.js"></script>
+
+  <!-- product page logic -->
+  <script>
+    // Helper: get query param
+    function getQueryParam(name){
+      const url = new URL(location.href);
+      return url.searchParams.get(name);
+    }
+
+    // Copy link
+    function copyLink(){
+      navigator.clipboard?.writeText(location.href).then(()=>alert("Link copied!"),()=>alert("Failed to copy"));
+    }
+
+    // Render product detail
+    (function renderProductPage(){
+      const id = parseInt(getQueryParam('id'));
+      // fallback: if no id, try last selected
+      const fallbackId = parseInt(localStorage.getItem('selectedProduct'));
+      const pid = id || fallbackId || products[0]?.id;
+      const product = products.find(p => p.id === pid);
+      if(!product){
+        document.getElementById('productWrapper').innerHTML = '<div style="padding:2rem">Product not found. <a href="index.html">Back to shop</a></div>';
+        return;
+      }
+
+      // breadcrumb
+      const breadcrumb = document.getElementById('breadcrumb');
+      breadcrumb.innerHTML = `<a href="index.html" style="color:var(--muted);text-decoration:none">Home</a> › <span style="color:var(--muted)">${product.name}</span>`;
+
+      // main info
+      document.title = product.name + " — Young";
+      document.getElementById('pTitle').textContent = product.name;
+      document.getElementById('pPrice').textContent = '$' + product.price;
+      document.getElementById('pDesc').textContent = product.desc;
+      document.getElementById('stockInfo').textContent = product.stock ? 'In stock: ' + product.stock : '';
+
+      // tags
+      const tagWrap = document.getElementById('pTags');
+      tagWrap.innerHTML = product.tags.map(t=>`<span class="small-tag">${t}</span>`).join(' ');
+
+      // gallery
+      const mainImage = document.getElementById('mainImage');
+      const thumbs = document.getElementById('thumbs');
+      const images = product.images || [product.image]; // product.images optional array
+      mainImage.src = images[0];
+      thumbs.innerHTML = images.map((src, i)=>`<img src="${src}" data-src="${src}" class="${i===0?'active':''}" alt="thumb ${i}" />`).join('');
+      thumbs.querySelectorAll('img').forEach(img=>{
+        img.addEventListener('click', ()=> {
+          thumbs.querySelectorAll('img').forEach(x=>x.classList.remove('active'));
+          img.classList.add('active');
+          mainImage.src = img.dataset.src;
+        });
+      });
+
+      // qty controls
+      const qtyInput = document.getElementById('qtyInput');
+      document.getElementById('qtyMinus').addEventListener('click', ()=> { let v = Math.max(1,parseInt(qtyInput.value||'1')-1); qtyInput.value=v; });
+      document.getElementById('qtyPlus').addEventListener('click', ()=> { let v = Math.max(1,parseInt(qtyInput.value||'1')+1); qtyInput.value=v; });
+      qtyInput.addEventListener('input', ()=> { if(!/^\d+$/.test(qtyInput.value) || parseInt(qtyInput.value)<1) qtyInput.value = '1'; });
+
+      // add to cart
+      document.getElementById('addBtn').addEventListener('click', ()=> {
+        const qty = parseInt(qtyInput.value||'1');
+        // use global addToCart: it expects product id and increments 1 each call.
+        // we'll call addToCart in a loop to add qty times (simple approach)
+        for(let i=0;i<qty;i++) addToCart(product.id);
+        alert(`${qty} × ${product.name} added to cart`);
+      });
+
+      // buy now => add 1 and go to cart page (not implemented: simulate)
+      document.getElementById('buyBtn').addEventListener('click', ()=> {
+        const qty = Math.max(1,parseInt(qtyInput.value||'1'));
+        for(let i=0;i<qty;i++) addToCart(product.id);
+        // then show quick cart modal from script.js
+        document.getElementById('cartBtn')?.click();
+      });
+
+      // reviews: load & show
+      const reviewKey = 'reviews_prod_' + product.id;
+      function loadReviews(){ return JSON.parse(localStorage.getItem(reviewKey) || '[]'); }
+      function renderReviews(){
+        const list = document.getElementById('reviewList');
+        const items = loadReviews();
+        if(items.length===0){ list.innerHTML = '<div class="muted">No reviews yet — be the first!</div>'; return; }
+        list.innerHTML = items.map(r => `<div class="review"><strong>${escapeHtml(r.name)}</strong> • <span class="muted">${'★'.repeat(r.rating)}</span><div style="margin-top:6px">${escapeHtml(r.text)}</div></div>`).join('');
+      }
+      function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+      document.getElementById('submitReview').addEventListener('click', ()=>{
+        const name = document.getElementById('reviewName').value.trim() || 'Anonymous';
+        const text = document.getElementById('reviewText').value.trim();
+        const rating = parseInt(document.getElementById('reviewRating').value);
+        if(!text){ alert('Please write a short review'); return; }
+        const arr = loadReviews();
+        arr.unshift({name,text,rating,ts: Date.now()});
+        localStorage.setItem(reviewKey, JSON.stringify(arr));
+        document.getElementById('reviewName').value=''; document.getElementById('reviewText').value='';
+        renderReviews();
+      });
+      renderReviews();
+
+      // related products (same tag)
+      const relatedGrid = document.getElementById('relatedGrid');
+      const related = products.filter(p=> p.id !== product.id && p.tags.some(t=> product.tags.includes(t))).slice(0,6);
+      relatedGrid.innerHTML = related.map(r=>`
+        <div style="background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:6px;border-radius:10px;text-align:center">
+          <img src="${r.image}" style="width:100%;height:110px;object-fit:cover;border-radius:8px" alt="${r.name}" />
+          <div style="margin-top:6px;font-weight:700">${r.name}</div>
+          <div class="muted">$${r.price}</div>
+          <div style="margin-top:6px"><button class="btn-sm" onclick="location.href='product.html?id=${r.id}'">Open</button></div>
+        </div>
+      `).join('');
+    })();
+  </script>
+</body>
+</html>
+
+
+{ id:101, name:"Young Black Tee", image:"images/tee-black.jpg", images:["images/tee-black.jpg","images/tee-black-2.jpg"], ... }
