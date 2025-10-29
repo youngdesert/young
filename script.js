@@ -132,6 +132,9 @@ const mobileNav = document.getElementById("mobileNav");
 
 const searchBtn = document.getElementById("searchBtn");
 const searchInput = document.getElementById("searchInput");
+const mobileSearchBtn = document.getElementById("mobileSearchBtn");
+const mobileSearchInput = document.getElementById("mobileSearchInput");
+
 const searchWrap = document.getElementById("searchWrap");
 const searchDropdown = document.getElementById("searchDropdown");
 const searchResultsBox = document.getElementById("searchResults");
@@ -193,6 +196,8 @@ function setupEventListeners() {
     });
   }
 
+
+
   // --- SEARCH ---
   if (searchBtn && searchInput) {
     // Click the "Enter ↵" chip
@@ -209,8 +214,47 @@ function setupEventListeners() {
       }
     });
 
+
+    // mobile search
+if (mobileSearchBtn && mobileSearchInput) {
+  mobileSearchBtn.addEventListener("click", () => {
+    handleMobileSearch();
+  });
+
+  mobileSearchInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      handleMobileSearch();
+    }
+  });
+}
+
+
+
     // Live type-ahead suggestions
     searchInput.addEventListener("input", handleLiveSearch);
+    function handleMobileSearch() {
+  // copy text from mobile field into desktop search state
+  if (!mobileSearchInput) return;
+  searchQuery = mobileSearchInput.value.toLowerCase();
+
+  // sync desktop input if it exists, so UI stays consistent when rotating device
+  if (searchInput) {
+    searchInput.value = mobileSearchInput.value;
+  }
+
+  renderProducts();
+
+  // scroll to products so results are visible
+  if (productGrid) {
+    productGrid.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  // close the mobile nav after searching
+  if (mobileNav) {
+    mobileNav.classList.remove("active");
+  }
+}
+
 
     // Focus: re-open dropdown if it already has results
     searchInput.addEventListener("focus", () => {
