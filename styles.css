@@ -100,9 +100,70 @@ a {
   display: none;
 }
 
+.mobile-search-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.mobile-search-wrap .search-inner {
+  display: flex;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.search-icon {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--fg);
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+
+.search-submit {
+  background: var(--primary);
+  color: #041025;
+  border: 0;
+  border-radius: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  padding: 0.5rem 0.6rem;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 10px 20px var(--glow);
+}
+
+.search-submit:active {
+  transform: scale(0.97);
+}
+
+/* hide mobile-search-wrap on desktop, because desktop already has search in the header */
+@media (min-width: 768px) {
+  .mobile-search-wrap {
+    display: none;
+  }
+}
+
+/* show header search on desktop only */
 @media (min-width: 768px) {
   .search-wrap {
     display: block;
+    position: relative;
   }
 }
 
