@@ -362,7 +362,7 @@
       margin-bottom: .75rem;
     }
 
-    /* quick-add button styles + low-stock badge support (JS relies on this) */
+    /* quick-add button styles */
     .product-img {
       position: relative;
       overflow: hidden;
@@ -398,14 +398,131 @@
       color: #000;
     }
 
-    /* toast on top of everything */
+    /* TEAM SECTION (home teaser version) */
+    .team-home {
+      max-width: 1200px;
+      margin: 4rem auto 5rem;
+      padding: 0 1.5rem;
+    }
+
+    .team-home-head {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .team-home-eyebrow {
+      display: inline-block;
+      background: var(--primary);
+      color: #041025;
+      font-size: .7rem;
+      font-weight: 700;
+      line-height: 1;
+      padding: .4rem .6rem;
+      border-radius: .5rem;
+      box-shadow: 0 10px 20px var(--glow);
+      letter-spacing: -0.03em;
+      margin-bottom: .75rem;
+    }
+
+    .team-home-head h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.03rem;
+      color: var(--fg);
+      margin-bottom: .5rem;
+    }
+
+    .team-home-head p {
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.4;
+      max-width: 32rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .team-grid-home {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(240px,100%),1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .team-card-home {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1rem 1rem 1.25rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .team-card-home:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 25px var(--glow);
+    }
+
+    .team-card-home-img {
+      width: 100%;
+      height: 200px;
+      border-radius: .75rem;
+      overflow: hidden;
+      background: #222;
+      margin-bottom: 1rem;
+    }
+
+    .team-card-home-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .team-card-home h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--fg);
+      margin-bottom: .25rem;
+      letter-spacing: -0.03em;
+    }
+
+    .team-card-home span {
+      font-size: .8rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .team-cta-row {
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    .team-cta-row a.cta-link-about {
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: none;
+      border: 1px solid var(--primary);
+      border-radius: .5rem;
+      padding: .6rem .8rem;
+      display: inline-block;
+      box-shadow: 0 15px 30px var(--glow);
+      transition: all .25s;
+    }
+
+    .team-cta-row a.cta-link-about:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 30px 60px var(--glow);
+    }
+
+    /* toast above all */
     .toast {
       z-index: 9999;
     }
   </style>
 </head>
 <body>
-  <!-- NAV -->
   <!-- NAV -->
   <header class="nav">
     <div class="nav-inner">
@@ -564,6 +681,47 @@
     </div>
   </section>
 
+  <!-- MEET THE TEAM (home teaser) -->
+  <section class="team-home">
+    <div class="team-home-head">
+      <div class="team-home-eyebrow">Meet the Team</div>
+      <h2>The creative minds behind Young</h2>
+      <p>
+        Designers, storytellers, and movers building this brand with love and obsession.
+      </p>
+    </div>
+
+    <div class="team-grid-home">
+      <div class="team-card-home">
+        <div class="team-card-home-img">
+          <img src="https://images.unsplash.com/photo-1603415526960-f7e0328b95b6" alt="Founder" />
+        </div>
+        <h4>Alex Rivera</h4>
+        <span>Founder & Creative Director</span>
+      </div>
+
+      <div class="team-card-home">
+        <div class="team-card-home-img">
+          <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39" alt="Designer" />
+        </div>
+        <h4>Mia Torres</h4>
+        <span>Lead Designer</span>
+      </div>
+
+      <div class="team-card-home">
+        <div class="team-card-home-img">
+          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde" alt="Marketing" />
+        </div>
+        <h4>Chris Wong</h4>
+        <span>Marketing & Partnerships</span>
+      </div>
+    </div>
+
+    <div class="team-cta-row">
+      <a class="cta-link-about" href="about.html">See full story →</a>
+    </div>
+  </section>
+
   <!-- QUICK VIEW MODAL -->
   <div id="modal" class="modal" aria-hidden="true">
     <div class="modal-backdrop" id="modalBackdrop"></div>
@@ -602,7 +760,7 @@
 
   <script src="script.js"></script>
 
-   <!-- page-specific extras -->
+  <!-- page-specific extras -->
   <script>
     // Floating orb parallax in hero
     const heroOrb = document.getElementById('heroOrb');
@@ -621,7 +779,6 @@
       function tick(now) {
         const progress = Math.min((now - startTime) / duration, 1);
         const value = Math.floor(start + (target - start) * progress);
-        // format with commas and plus sign
         el.textContent = value.toLocaleString() + '+';
         if (progress < 1) {
           requestAnimationFrame(tick);
@@ -633,11 +790,8 @@
     // Run stat animation once on load
     window.addEventListener('DOMContentLoaded', () => {
       const statOrdersEl = document.getElementById('statOrders');
-      // animate from 0 -> 2183
-      animateNumber(statOrdersEl, 2183);
-
-      // statRating ("4.8★") and statSpeed ("48h") stay static because
-      // they're not pure numbers and we'd have to special-case strings.
+      animateNumber(statOrdersEl, 2183); // 0 -> 2183
+      // rating ("4.8★") and ship time ("48h") stay static
     });
 
     // Drop notify mini logic
